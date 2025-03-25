@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let yesBtnSize = 1;
     let selectedDate = null;
 
-    // Make the No button dodge the cursor
-    noBtn.addEventListener('mouseover', function(e) {
+    // Handle No button click - now makes the button move to a random position
+    noBtn.addEventListener('click', function() {
         // Get the viewport dimensions
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
@@ -54,15 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add a smooth transition for the movement
         noBtn.style.transition = 'all 0.3s ease';
-    });
-
-    // Handle No button click (reset the button position and show question again)
-    noBtn.addEventListener('click', function() {
-        // Reset the button position
-        noBtn.style.position = 'relative';
-        noBtn.style.left = '';
-        noBtn.style.top = '';
-        noBtn.style.transition = 'none'; // Remove transition for reset
         
         // Reset the question with a shake animation
         const question = document.querySelector('.question');
