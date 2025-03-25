@@ -61,6 +61,20 @@ document.addEventListener('DOMContentLoaded', function() {
         void question.offsetWidth; // Trigger reflow to restart animation
         question.classList.add('animate__animated', 'animate__shakeX');
         
+        // Make the Yes button bigger each time No is pressed
+        yesBtnSize *= 2;
+        // Limit the maximum size to prevent it from getting too big
+        if (yesBtnSize > 16) {
+            yesBtnSize = 16;
+        }
+        yesBtn.style.transform = `scale(${yesBtnSize})`;
+        yesBtn.style.transition = 'transform 0.3s ease';
+        
+        // Add a quick pulse animation to draw attention to the growing Yes button
+        yesBtn.classList.remove('animate__pulse');
+        void yesBtn.offsetWidth; // Trigger reflow to restart animation
+        yesBtn.classList.add('animate__animated', 'animate__pulse');
+        
         setTimeout(() => {
             question.classList.remove('animate__shakeX');
             question.classList.add('animate__heartBeat');
