@@ -206,11 +206,61 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentMonth = today.getMonth();
         const currentYear = today.getFullYear();
         
+        // Initialize currentViewMonth and currentViewYear to track which month/year is being displayed
+        let currentViewMonth = currentMonth;
+        let currentViewYear = currentYear;
+        
+        // Function to update the calendar when month changes
+        function updateCalendar() {
+            generateCalendar(currentViewMonth, currentViewYear, calendarElement);
+        }
+        
+        // Create month navigation buttons
+        const navContainer = document.createElement('div');
+        navContainer.className = 'calendar-navigation';
+        navContainer.innerHTML = `
+            <button id="prev-month">&lt; Prev</button>
+            <button id="next-month">Next &gt;</button>
+        `;
+        
         // Create the calendar
-        generateCalendar(currentMonth, currentYear, calendarElement);
+        generateCalendar(currentViewMonth, currentViewYear, calendarElement, navContainer);
+        
+        // Add event listeners for navigation buttons
+        document.getElementById('prev-month').addEventListener('click', function() {
+            if (currentViewMonth === 0 && currentViewYear === currentYear) {
+                // Don't go before current month in current year
+                return;
+            }
+            
+            if (currentViewMonth === 0) {
+                currentViewMonth = 11;
+                currentViewYear--;
+            } else {
+                currentViewMonth--;
+            }
+            
+            updateCalendar();
+        });
+        
+        document.getElementById('next-month').addEventListener('click', function() {
+            if (currentViewMonth === 11 && currentViewYear === currentYear) {
+                // Don't go beyond December of current year
+                return;
+            }
+            
+            if (currentViewMonth === 11) {
+                currentViewMonth = 0;
+                currentViewYear++;
+            } else {
+                currentViewMonth++;
+            }
+            
+            updateCalendar();
+        });
     }
 
-    function generateCalendar(month, year, container) {
+    function generateCalendar(month, year, container, navContainer) {
         // Clear existing calendar
         container.innerHTML = '';
         
@@ -222,6 +272,11 @@ document.addEventListener('DOMContentLoaded', function() {
         header.className = 'calendar-header';
         header.innerHTML = `<h2>${monthNames[month]} ${year}</h2>`;
         container.appendChild(header);
+        
+        // Add navigation if provided
+        if (navContainer) {
+            container.appendChild(navContainer);
+        }
         
         // Create calendar table
         const table = document.createElement('table');
@@ -330,6 +385,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 background-color: #FF4081 !important;
                 color: white !important;
                 font-weight: bold;
+            }
+            
+            .calendar-navigation {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 15px;
+            }
+            
+            .calendar-navigation button {
+                background-color: #673AB7;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+            
+            .calendar-navigation button:hover {
+                background-color: #7E57C2;
+            }
+            
+            .calendar-navigation button:disabled {
+                background-color: #D1C4E9;
+                cursor: not-allowed;
             }
             
             @keyframes fall {
