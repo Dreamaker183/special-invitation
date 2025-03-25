@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Invitation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-particles"></div>
+    
+    <!-- Question Page -->
+    <div id="question-page" class="page-container">
+        <div class="container">
+            <!-- Decorative elements -->
+            <div class="floating-hearts">
+                <div class="heart">❤️</div>
+                <div class="heart">💖</div>
+                <div class="heart">💕</div>
+                <div class="heart">💘</div>
+            </div>
+            
+            <!-- Initial question screen -->
+            <div id="question-container" class="question-container">
+                <div class="image-container animate__animated animate__fadeIn">
+                    <img src="https://i.imgur.com/JtAQ0l4.jpg" alt="Cute Cat" class="cat-image">
+                </div>
+                <h1 class="question animate__animated animate__heartBeat">Do you want to go on a date with me?</h1>
+                <div class="buttons">
+                    <button id="yes-btn" class="btn yes-btn">Yes</button>
+                    <button id="no-btn" class="btn no-btn">No</button>
+                </div>
+                <div id="click-counter" class="click-counter">0</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Celebration Page (initially hidden) -->
+    <div id="celebration-page" class="page-container hidden">
+        <div class="container">
+            <div class="floating-hearts">
+                <div class="heart">❤️</div>
+                <div class="heart">💖</div>
+                <div class="heart">💕</div>
+                <div class="heart">💘</div>
+            </div>
+            
+            <div id="celebration-container" class="celebration-container">
+                <div class="image-container animate__animated animate__bounceIn">
+                    <img src="https://i.imgur.com/QotvJgj.jpg" alt="Excited Cat" class="cat-image">
+                </div>
+                <h1 class="celebrate-text animate__animated animate__bounceIn">Yay! I'm so excited!</h1>
+                <p class="celebrate-subtext animate__animated animate__fadeIn">Let's plan our perfect date!</p>
+                <button id="continue-btn" class="btn continue-btn">Continue to booking</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Page (initially hidden) -->
+    <div id="booking-page" class="page-container hidden">
+        <div class="container">
+            <div class="floating-hearts">
+                <div class="heart">❤️</div>
+                <div class="heart">💖</div>
+                <div class="heart">💕</div>
+                <div class="heart">💘</div>
+            </div>
+            
+            <div id="booking-container" class="booking-container">
+                <h2 class="booking-title">Choose your date and time</h2>
+                
+                <div class="image-gallery">
+                    <div class="image-item">
+                        <img src="https://i.imgur.com/ZYe9t8N.jpg" alt="NewJeans" class="gallery-image">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://i.imgur.com/VYZm5pD.jpg" alt="Cat with flowers" class="gallery-image">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://i.imgur.com/2INSI3n.jpg" alt="NewJeans members" class="gallery-image">
+                    </div>
+                </div>
+                
+                <div class="calendar-container">
+                    <div id="calendar"></div>
+                    <div class="time-selection">
+                        <label for="time-select">Pick a time</label>
+                        <select id="time-select" aria-label="Select time for date">
+                            <option value="17:00">5:00 PM</option>
+                            <option value="18:00">6:00 PM</option>
+                            <option value="19:00">7:00 PM</option>
+                            <option value="20:00">8:00 PM</option>
+                            <option value="21:00">9:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="confirm-btn" class="btn confirm-btn">Confirm Date</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Page (initially hidden) -->
+    <div id="confirmation-page" class="page-container hidden">
+        <div class="container">
+            <div class="floating-hearts">
+                <div class="heart">❤️</div>
+                <div class="heart">💖</div>
+                <div class="heart">💕</div>
+                <div class="heart">💘</div>
+            </div>
+            
+            <div id="confirmation-container" class="confirmation-container">
+                <div class="image-container animate__animated animate__zoomIn">
+                    <img src="https://i.imgur.com/LNYqPzD.jpg" alt="Happy Cat" class="cat-image">
+                </div>
+                <h1 class="confirm-text animate__animated animate__zoomIn">It's a date!</h1>
+                <p id="date-details" class="date-details">I can't wait to see you on <span id="selected-date"></span> at <span id="selected-time"></span>!</p>
+                <div class="hearts">❤️ ❤️ ❤️</div>
+                <div class="new-jeans-footer">
+                    <img src="https://i.imgur.com/nJhAqPL.jpg" alt="NewJeans" class="new-jeans-image">
+                    <p class="footer-text">Let's have fun like NewJeans!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            // Initialize EmailJS with your public key
+            emailjs.init("kOvM75AQM0vtq7nPG");
+        })();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html> 
