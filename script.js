@@ -27,24 +27,48 @@ document.addEventListener('DOMContentLoaded', function() {
     let yesBtnClickCount = 0;
     let yesBtnSize = 1;
     let selectedDate = null;
+    let isFirstNoClick = true; // Track if it's the first No button click
+
+    // Initialize the No button with a transition to prevent teleporting on first click
+    window.addEventListener('load', function() {
+        // Set initial transition
+        noBtn.style.transition = 'all 0.3s ease';
+    });
 
     // Handle No button click - now makes the button move to a random position
     noBtn.addEventListener('click', function() {
-        // Get the viewport dimensions
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
+        // Get the viewport dimensions - use the more compatible way to get viewport size
+        const viewportWidth = Math.min(window.innerWidth, document.documentElement.clientWidth);
+        const viewportHeight = Math.min(window.innerHeight, document.documentElement.clientHeight);
         
         // Get the button dimensions
         const buttonWidth = noBtn.offsetWidth;
         const buttonHeight = noBtn.offsetHeight;
         
         // Calculate safe boundaries (keep button fully visible)
-        const maxX = viewportWidth - buttonWidth;
-        const maxY = viewportHeight - buttonHeight;
+        // Add padding to ensure the button stays away from the edges
+        const padding = 20;
+        const maxX = viewportWidth - buttonWidth - padding;
+        const maxY = viewportHeight - buttonHeight - padding;
         
         // Get a random position within the viewport
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
+        const x = Math.max(padding, Math.random() * maxX);
+        const y = Math.max(padding, Math.random() * maxY);
+        
+        // Special handling for the first click to prevent teleporting
+        if (isFirstNoClick) {
+            // First set position without moving yet
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = noBtn.getBoundingClientRect().left + 'px';
+            noBtn.style.top = noBtn.getBoundingClientRect().top + 'px';
+            noBtn.style.zIndex = '9999';
+            
+            // Force a reflow to apply the initial position before moving
+            void noBtn.offsetWidth;
+            
+            // Now set the flag to false so future clicks are normal
+            isFirstNoClick = false;
+        }
         
         // Apply the new position with a smooth transition
         noBtn.style.position = 'fixed';
@@ -52,8 +76,11 @@ document.addEventListener('DOMContentLoaded', function() {
         noBtn.style.top = y + 'px';
         noBtn.style.zIndex = '9999';
         
-        // Add a smooth transition for the movement
+        // Add a smooth transition for the movement (include multiple browser prefixes)
         noBtn.style.transition = 'all 0.3s ease';
+        noBtn.style.WebkitTransition = 'all 0.3s ease';
+        noBtn.style.MozTransition = 'all 0.3s ease';
+        noBtn.style.msTransition = 'all 0.3s ease';
         
         // Reset the question with a shake animation
         const question = document.querySelector('.question');
